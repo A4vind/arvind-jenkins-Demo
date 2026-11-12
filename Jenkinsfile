@@ -9,15 +9,15 @@ pipeline {
         stage('build image') {
             steps {
                 echo 'Building the Docker image...'
-                bat 'docker build -t arvind-jenkins-Demo-image .'
+                bat 'docker build -t arvind-jenkins-demo-image .'
             }
         }
 
         stage('Run Docker Container') {
             steps {
                 echo 'Starting the container...'
-                bat 'docker rm -f arvind-jenkins-Demo-container || exit 0'
-                bat 'docker run -d --name arvind-jenkins-Demo-container -p 8081:80 arvind-jenkins-Demo-image'
+                bat 'docker rm -f arvind-jenkins-demo-container || exit 0'
+                bat 'docker run -d --name arvind-jenkins-demo-container -p 8081:80 arvind-jenkins-demo-image'
             }
         }
     }
