@@ -1,17 +1,24 @@
 pipeline {
-  agent any
-  stages {
-    stage('Build Image') {
-      steps {
-      bat 'docker build -t arvind-web.'
+    agent any
+
+    environment {
+        PATH = "C:\Users\HP\AppData\Local\Programs\DockerDesktop\resources\bin;${env.PATH}"
     }
-    }
-      stage('run container'){
-        steps{
-          bat 'docker rm -f arvind-web || exit 0'
-          bat 'docker run -d --name arvind-web -p 8081:80 arvind-web'
+
+    stages {
+        stage('build image') {
+            steps {
+                echo 'Building the Docker image...'
+                bat 'docker build -t lal-jenkins-demo-image .'
+            }
         }
-      }
+
+        stage('Run Docker Container') {
+            steps {
+                echo 'Starting the container...'
+                bat 'docker rm -f lal-jenkins-demo-container || exit 0'
+                bat 'docker run -d --name lal-jenkins-demo-container -p 8081:80 lal-jenkins-demo-image'
+            }
+        }
     }
-  }
-    
+}
